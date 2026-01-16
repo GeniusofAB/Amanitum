@@ -7,12 +7,12 @@
     <style>
         /* --- CORE VARIABLES --- */
         :root {
-            --bg-body: #090c10;       /* Ultra Dark */
+            --bg-body: #090c10;       
             --bg-card: #161b22;       
-            --bg-header: rgba(13, 17, 23, 0.85); /* Полупрозрачный */
+            --bg-header: rgba(13, 17, 23, 0.85); 
             
             --border-subtle: #30363d; 
-            --border-hover: #58a6ff;  /* Яркий акцент при наведении */
+            --border-hover: #58a6ff;  
             
             --text-main: #c9d1d9;     
             --text-header: #ffffff;   
@@ -21,9 +21,11 @@
             --accent-primary: #238636; 
             --accent-glow: rgba(35, 134, 54, 0.4);
             
-            --effect-trip: #d2a8ff;   /* Светло-фиолетовый */
-            --effect-bad: #ff7b72;    /* Мягкий красный */
-            --effect-good: #3fb950;   /* Яркий зеленый */
+            --modrinth-green: #1bd96a; /* Фирменный цвет Modrinth */
+            
+            --effect-trip: #d2a8ff;   
+            --effect-bad: #ff7b72;    
+            --effect-good: #3fb950;   
         }
 
         /* --- SCROLLBAR --- */
@@ -41,9 +43,11 @@
             color: var(--text-main);
             line-height: 1.6;
             font-size: 16px;
-            padding-top: 100px; /* Отступ под шапку */
+            padding-top: 100px; 
             padding-bottom: 50px;
         }
+
+        a { text-decoration: none; color: inherit; }
 
         /* --- LAYOUT --- */
         .container {
@@ -52,7 +56,7 @@
             padding: 0 20px;
         }
 
-        /* --- STICKY HEADER WITH BLUR --- */
+        /* --- HEADER (UPDATED) --- */
         header {
             position: fixed;
             top: 0;
@@ -60,38 +64,32 @@
             width: 100%;
             height: 80px;
             background-color: var(--bg-header);
-            backdrop-filter: blur(10px); /* Эффект матового стекла */
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border-subtle);
             z-index: 1000;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center; /* Центрируем лого */
             padding: 0 40px;
             box-shadow: 0 4px 30px rgba(0,0,0,0.3);
         }
 
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
         .logo-img {
-            height: 50px;
+            height: 64px; /* Чуть крупнее */
             width: auto;
-            filter: drop-shadow(0 0 5px rgba(255,255,255,0.2));
+            filter: drop-shadow(0 0 10px rgba(255,255,255,0.1));
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
-        .mod-name {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: var(--text-header);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .logo-img:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 0 15px rgba(255,255,255,0.3));
         }
 
-        /* --- LANG SWITCHER --- */
+        /* --- LANG SWITCHER (ABSOLUTE RIGHT) --- */
         .lang-switch {
+            position: absolute;
+            right: 40px;
             display: flex;
             background: #21262d;
             border-radius: 20px;
@@ -252,24 +250,76 @@
         .fx-good { color: var(--effect-good); }
         .time-badge { opacity: 0.7; font-family: monospace; }
 
+        /* --- MODRINTH FOOTER BUTTON --- */
+        .footer-area {
+            margin-top: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .modrinth-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(27, 217, 106, 0.1);
+            border: 1px solid var(--modrinth-green);
+            padding: 15px 40px;
+            border-radius: 8px;
+            color: var(--modrinth-green);
+            font-weight: 800;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .modrinth-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(27, 217, 106, 0.2), transparent);
+            transition: 0.5s;
+        }
+
+        .modrinth-btn:hover {
+            background: var(--modrinth-green);
+            color: #000;
+            box-shadow: 0 0 30px rgba(27, 217, 106, 0.4);
+            transform: translateY(-3px);
+        }
+
+        .modrinth-btn:hover::before {
+            left: 100%;
+        }
+
+        .footer-copy {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            opacity: 0.5;
+        }
+
         /* --- LANGUAGE LOGIC --- */
-        /* По умолчанию скрываем английский, если нет класса */
         [data-lang="en"] { display: none; }
         
-        /* Когда класс english-mode активен у body */
         body.english-mode [data-lang="ru"] { display: none; }
-        body.english-mode [data-lang="en"] { display: block; } /* Block для блочных элементов */
-        body.english-mode span[data-lang="en"] { display: inline; } /* Inline для текста внутри строк */
+        body.english-mode [data-lang="en"] { display: block; } 
+        body.english-mode span[data-lang="en"] { display: inline; } 
+        body.english-mode .biome-tags[data-lang="en"] { display: flex; }
 
     </style>
 </head>
 <body>
 
 <header>
-    <div class="logo-area">
-        <img src="img/logo.png" alt="Logo" class="logo-img" onerror="this.style.display='none'"> 
-        <div class="mod-name">Amanitum</div>
-    </div>
+    <img src="img/logo.png" alt="Amanitum Logo" class="logo-img" onerror="this.style.opacity='0'"> 
     
     <div class="lang-switch" onclick="toggleLanguage()">
         <div class="lang-btn active" id="btn-ru">RU</div>
@@ -307,16 +357,24 @@
             <div class="info-block">
                 <span class="info-title" data-lang="ru">Где растёт:</span>
                 <span class="info-title" data-lang="en">Spawns in:</span>
-                <div class="biome-tags">
+                
+                <div class="biome-tags" data-lang="ru">
+                    <span class="tag">Тёмный лес</span>
+                    <span class="tag">Тайга</span>
+                    <span class="tag">Берёзовая роща</span>
+                    <span class="tag">Хвойная тайга</span>
+                </div>
+                <div class="biome-tags" data-lang="en">
                     <span class="tag">Dark Forest</span>
                     <span class="tag">Taiga</span>
                     <span class="tag">Birch Taiga</span>
                     <span class="tag">Pine Taiga</span>
                 </div>
+
             </div>
             <div class="info-block">
-                <span class="info-title" data-lang="ru">Эффекты (если захавать жареный):</span>
-                <span class="info-title" data-lang="en">Effects (if eaten cooked):</span>
+                <span class="info-title" data-lang="ru">Эффекты (жареный):</span>
+                <span class="info-title" data-lang="en">Effects (cooked):</span>
                 <ul class="effects-list">
                     <li class="fx-bad">
                         <span data-lang="ru">Тошнота III</span><span data-lang="en">Nausea III</span>
@@ -358,11 +416,19 @@
             <div class="info-block">
                 <span class="info-title" data-lang="ru">Где растёт:</span>
                 <span class="info-title" data-lang="en">Spawns in:</span>
-                <div class="biome-tags">
+                
+                <div class="biome-tags" data-lang="ru">
+                    <span class="tag">Мангровое болото</span>
+                    <span class="tag">Болото</span>
+                    <span class="tag">Тёмный лес</span>
+                </div>
+                <div class="biome-tags" data-lang="en">
+                    <span class="tag">Mangrove Swamp</span>
                     <span class="tag">Swamps</span>
                     <span class="tag">Dark Forest</span>
                 </div>
             </div>
+
             <div class="info-block">
                 <span class="info-title" data-lang="ru">Эффекты (жареный):</span>
                 <span class="info-title" data-lang="en">Effects (cooked):</span>
@@ -407,12 +473,19 @@
             <div class="info-block">
                 <span class="info-title" data-lang="ru">Где растёт:</span>
                 <span class="info-title" data-lang="en">Spawns in:</span>
-                <div class="biome-tags">
+                
+                <div class="biome-tags" data-lang="ru">
+                    <span class="tag">Грибной остров</span>
+                    <span class="tag">Джунгли</span>
+                    <span class="tag">Берег</span>
+                </div>
+                <div class="biome-tags" data-lang="en">
                     <span class="tag">Mushroom Island</span>
                     <span class="tag">Jungle</span>
                     <span class="tag">Beach</span>
                 </div>
             </div>
+
             <div class="info-block">
                 <span class="info-title" data-lang="ru">Эффекты (жареный):</span>
                 <span class="info-title" data-lang="en">Effects (cooked):</span>
@@ -574,6 +647,13 @@
         </div>
     </div>
 
+    <div class="footer-area">
+        <a href="https://modrinth.com/user/GeniusofAB" target="_blank" class="modrinth-btn">
+            Access Repository [Modrinth]
+        </a>
+        <div class="footer-copy">AMANITUM © 2026</div>
+    </div>
+
 </div>
 
 <script>
@@ -582,10 +662,8 @@
         const btnRu = document.getElementById('btn-ru');
         const btnEn = document.getElementById('btn-en');
         
-        // Переключаем класс на body
         body.classList.toggle('english-mode');
         
-        // Меняем активную кнопку
         if (body.classList.contains('english-mode')) {
             btnRu.classList.remove('active');
             btnEn.classList.add('active');
