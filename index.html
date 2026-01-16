@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Гайд по моду Amanitum</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+        }
+        h2 {
+            border-bottom: 2px solid #2c3e50;
+            padding-bottom: 10px;
+            margin-top: 40px;
+        }
+        .item-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .item-title {
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #444;
+        }
+        .images-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+        .img-box {
+            text-align: center;
+        }
+        .img-box p {
+            margin: 5px 0 0 0;
+            font-size: 0.9em;
+            color: #666;
+        }
+        img {
+            width: 64px; /* Размер иконок */
+            height: 64px;
+            image-rendering: pixelated; /* Чтобы пиксель-арт не размывался */
+            border: 1px solid #ddd;
+            padding: 10px;
+            background-color: #fafafa;
+            border-radius: 5px;
+        }
+        ul {
+            list-style-type: disc;
+            padding-left: 20px;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        .effects {
+            background-color: #fff3cd;
+            padding: 10px;
+            border-radius: 5px;
+            border-left: 5px solid #ffc107;
+        }
+        .biome-tag {
+            font-style: italic;
+            color: #27ae60;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Гайд по моду Amanitum</h1>
+
+    <h2>Глава 1: Грибы</h2>
+
+    <div class="item-card">
+        <div class="item-title">Ярко-жёлтый гриб</div>
+        <div class="images-row">
+            <div class="img-box">
+                <img src="img/bright_yellow_mushroom.png" alt="Сырой гриб">
+                <p>Сырой</p>
+            </div>
+            <div class="img-box">
+                <img src="img/bright_yellow_mushroom_dried.png" alt="Жареный гриб">
+                <p>Жареный (Сушеный)</p>
+            </div>
+        </div>
+        <p><strong>Где найти:</strong> <span class="biome-tag">Тёмный лес, Тайга, Берёзовая роща (Old Growth Birch Taiga), Древняя хвойная тайга (Old Growth Pine Taiga).</span></p>
+        <p><strong>Приготовление:</strong> Чтобы получить жареную версию, пережарьте сырой гриб в печке.</p>
+        <div class="effects">
+            <strong>Эффекты при поедании (Жареный):</strong>
+            <ul>
+                <li>Тошнота III (10:00)</li>
+                <li>Спешка I (2:30)</li>
+                <li>Эффект "Трип" (10:00)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="item-card">
+        <div class="item-title">Пантерный гриб</div>
+        <div class="images-row">
+            <div class="img-box">
+                <img src="img/pantera_mushroom.png" alt="Сырой гриб">
+                <p>Сырой</p>
+            </div>
+            <div class="img-box">
+                <img src="img/pantera_mushroom_dried.png" alt="Жареный гриб">
+                <p>Жареный (Сушеный)</p>
+            </div>
+        </div>
+        <p><strong>Где найти:</strong> <span class="biome-tag">Мангровое болото, Болото, Тёмный лес.</span></p>
+        <p><strong>Приготовление:</strong> Пережарить в печке.</p>
+        <div class="effects">
+            <strong>Эффекты при поедании (Жареный):</strong>
+            <ul>
+                <li>Тошнота III (10:00)</li>
+                <li>Прилив здоровья (Health Boost) I (0:10)</li>
+                <li>Эффект "Трип" (10:00)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="item-card">
+        <div class="item-title">Псилоцибиновый гриб</div>
+        <div class="images-row">
+            <div class="img-box">
+                <img src="img/psilocybin_mushroom.png" alt="Сырой гриб">
+                <p>Сырой</p>
+            </div>
+            <div class="img-box">
+                <img src="img/psilocybin_mushroom_dried.png" alt="Жареный гриб">
+                <p>Жареный (Сушеный)</p>
+            </div>
+        </div>
+        <p><strong>Где найти:</strong> <span class="biome-tag">Грибной остров, Бамбуковые джунгли, Джунгли, Берег.</span></p>
+        <p><strong>Приготовление:</strong> Пережарить в печке.</p>
+        <div class="effects">
+            <strong>Эффекты при поедании (Жареный):</strong>
+            <ul>
+                <li>Тошнота III (0:30)</li>
+                <li>Сила I (3:00)</li>
+                <li>Эффект "Трип" (10:00)</li>
+            </ul>
+        </div>
+    </div>
+
+    <h2>Глава 2: Экстракты</h2>
+    <p>Для употребления экстрактов необходим специальный предмет — <strong>Сверток</strong>.</p>
+
+    <div class="item-card">
+        <div class="item-title">Сверток (Money Paper)</div>
+        <div class="images-row">
+            <div class="img-box">
+                <img src="img/money_paper.png" alt="Сверток">
+                <p>Предмет</p>
+            </div>
+            <div class="img-box">
+                <img src="img/money_paper_craft.png" alt="Крафт свертка">
+                <p>Рецепт крафта</p>
+            </div>
+        </div>
+        <p>Используется как основа для употребления экстрактов.</p>
+    </div>
+
+    <div class="item-card">
+        <div class="item-title">Белый экстракт</div>
+        <div class="images-row">
+            <div class="img-box">
+                <img src="img/white_craft.png" alt="Крафт белого экстракта">
+                <p>Рецепт крафта</p>
+            </div>
+        </div>
+        <p><strong>Как использовать:</strong> Положите в крафт <em>Сверток</em> и <em>Белый экстракт</em>.</p>
+        <div class="effects">
+            <strong>Эффекты:</strong>
+            <ul>
+                <li>Эффект "Трип" (10:00)</li>
+                <li>Прилив здоровья (Health Boost) III (0:30)</li>
+            </ul>
+            <p><em>После использования возвращается пустой сверток.</em></p>
+        </div>
+    </div>
+
+    <div class="item-card">
+        <div class="item-title">Красный экстракт</div>
+        <div class="images-row">
+            <div class="img-box">
+                <img src="img/red_craft.png" alt="Крафт красного экстракта">
+                <p>Рецепт крафта</p>
+            </div>
+        </div>
+        <p><strong>Как использовать:</strong> Положите в крафт <em>Сверток</em> и <em>Красный экстракт</em>.</p>
+        <div class="effects">
+            <strong>Эффекты:</strong>
+            <ul>
+                <li>Регенерация II (0:30)</li>
+                <li>Эффект "Трип" (5:00)</li>
+            </ul>
+            <p><em>После использования возвращается пустой сверток.</em></p>
+        </div>
+    </div>
+
+    <div class="item-card">
+        <div class="item-title">Жёлтый экстракт</div>
+        <div class="images-row">
+            <div class="img-box">
+                <img src="img/yellow_craft.png" alt="Крафт желтого экстракта">
+                <p>Рецепт крафта</p>
+            </div>
+        </div>
+        <p><strong>Как использовать:</strong> Положите в крафт <em>Сверток</em> и <em>Жёлтый экстракт</em>.</p>
+        <div class="effects">
+            <strong>Эффекты:</strong>
+            <ul>
+                <li>Спешка III (5:00)</li>
+                <li>Эффект "Трип" (5:20)</li>
+            </ul>
+            <p><em>После использования возвращается пустой сверток.</em></p>
+        </div>
+    </div>
+
+</body>
+</html>
