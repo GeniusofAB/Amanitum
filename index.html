@@ -3,366 +3,476 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Документация модификации Amanitum</title>
+    <title>Amanitum Protocol | Documentation</title>
     <style>
+        /* --- CORE VARIABLES --- */
         :root {
-            --bg-primary: #f4f7f9;
-            --bg-secondary: #ffffff;
-            --text-primary: #333d47;
-            --text-secondary: #5c6b7a;
-            --accent-color: #2b74b3;
-            --border-color: #dce4ec;
-            --success-color: #28a745;
+            --bg-body: #0d1117;       /* Очень темный фон */
+            --bg-card: #161b22;       /* Фон карточек */
+            --bg-header: #010409;     /* Шапка */
+            
+            --border-subtle: #30363d; /* Тонкие рамки */
+            --border-hover: #8b949e;  /* Рамки при наведении */
+            
+            --text-main: #c9d1d9;     /* Основной текст */
+            --text-header: #ffffff;   /* Заголовки */
+            --text-muted: #8b949e;    /* Второстепенный текст */
+            
+            --accent-primary: #238636; /* Зеленый акцент */
+            --accent-glow: rgba(56, 139, 253, 0.15);
+            
+            --effect-trip: #a371f7;   /* Фиолетовый для трипа */
+            --effect-bad: #f85149;    /* Красный для дебаффов */
+            --effect-good: #3fb950;   /* Зеленый для баффов */
         }
 
+        /* --- GLOBAL RESET & TYPOGRAPHY --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
         body {
-            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
             line-height: 1.6;
-            margin: 0;
-            padding: 40px 20px;
+            font-size: 16px;
+            padding-bottom: 100px;
         }
 
+        /* --- LAYOUT UTILITIES --- */
         .container {
-            max-width: 900px;
+            max-width: 1100px;
             margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- HEADER --- */
+        header {
+            background-color: var(--bg-header);
+            border-bottom: 1px solid var(--border-subtle);
+            padding: 60px 0;
+            margin-bottom: 60px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         h1 {
-            text-align: center;
-            color: var(--text-primary);
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 50px;
+            color: var(--text-header);
+            font-size: 3rem;
+            font-weight: 800;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
             text-transform: uppercase;
+            background: linear-gradient(90deg, #fff, #8b949e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        /* --- SECTIONS --- */
         h2 {
-            color: var(--text-primary);
-            border-bottom: 2px solid var(--border-color);
-            padding-bottom: 15px;
-            margin-top: 60px;
+            color: var(--text-header);
+            border-left: 5px solid var(--accent-primary);
+            padding-left: 20px;
+            margin: 80px 0 40px 0;
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- CARDS DESIGN --- */
+        .card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 40px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+            border-color: var(--border-hover);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-subtle);
+            padding-bottom: 20px;
+        }
+
+        .item-name {
+            font-size: 1.8rem;
+            color: var(--text-header);
+            font-weight: 700;
+        }
+
+        /* --- IMAGES & GRID --- */
+        .showcase-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .img-container {
+            background: #010409;
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .img-container img {
+            image-rendering: pixelated; /* Критично для майнкрафта */
+            display: block;
+            margin: 0 auto;
+            transition: transform 0.3s ease;
+        }
+        
+        /* Эффект зума при наведении на картинку */
+        .img-container:hover img {
+            transform: scale(1.1);
+        }
+
+        /* Размер иконок предметов */
+        .img-icon {
+            width: 96px; 
+            height: 96px;
+        }
+
+        /* Огромный размер для крафтов */
+        .img-craft {
+            width: 100%;
+            max-width: 300px; /* Достаточно огромный */
+            height: auto;
+        }
+
+        .caption {
+            display: block;
+            margin-top: 15px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
             font-weight: 600;
         }
 
-        .item-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        /* --- DATA BLOCKS --- */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
         }
 
-        .item-header {
+        @media (max-width: 768px) {
+            .info-grid { grid-template-columns: 1fr; }
+        }
+
+        .info-block {
+            background: rgba(255,255,255,0.03);
+            border-radius: 8px;
+            padding: 20px;
+        }
+
+        .info-title {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 15px;
+            display: block;
+            font-weight: 700;
+        }
+
+        /* --- BIOME TAGS --- */
+        .biome-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .tag {
+            background: #21262d;
+            color: var(--text-main);
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            border: 1px solid var(--border-subtle);
+            font-family: 'Courier New', monospace;
+        }
+
+        /* --- EFFECTS LIST --- */
+        ul.effects-list {
+            list-style: none;
+        }
+
+        ul.effects-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
             display: flex;
             align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 20px;
-            margin-bottom: 25px;
         }
 
-        .item-title {
-            font-size: 1.6em;
-            font-weight: 700;
-            margin: 0;
-            color: var(--text-primary);
+        ul.effects-list li:last-child { border-bottom: none; }
+
+        /* Цветовое кодирование эффектов */
+        .fx-trip { color: var(--effect-trip); font-weight: bold; text-shadow: 0 0 10px rgba(163, 113, 247, 0.3); }
+        .fx-bad { color: var(--effect-bad); }
+        .fx-good { color: var(--effect-good); }
+
+        .time-badge {
+            margin-left: auto;
+            background: rgba(255,255,255,0.1);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: var(--text-header);
         }
 
-        .section-title {
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-top: 25px;
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        /* --- Стили для изображений --- */
-        .images-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            margin-bottom: 25px;
-            justify-content: flex-start;
-        }
-
-        .img-box {
+        /* --- FOOTER --- */
+        .footer-note {
             text-align: center;
+            color: var(--text-muted);
+            margin-top: 100px;
+            font-size: 0.9rem;
+            opacity: 0.5;
         }
 
-        .img-box img {
-            image-rendering: pixelated; /* Важно для пиксель-арта */
-            border: 1px solid var(--border-color);
-            padding: 10px;
-            background-color: #f8f9fa;
-            border-radius: 4px;
-            display: block;
-            margin-bottom: 10px;
-            box-shadow: inset 0 0 10px rgba(0,0,0,0.02);
-        }
-
-        /* Класс для одиночных предметов - побольше */
-        .img-item {
-            width: 128px;
-            height: 128px;
-        }
-
-        /* Класс для крафтов - значительно больше */
-        .img-craft {
-            width: 256px; /* Оптимальный размер для сетки 3x3 чтобы все разглядеть */
-            height: auto;
-            max-width: 100%; /* Чтобы не вылезало на мобильных */
-        }
-
-        .img-caption {
-            font-size: 0.9em;
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        /* --- Стили для контента --- */
-        ul {
-            padding-left: 25px;
-            margin-top: 10px;
-        }
-
-        li {
-            margin-bottom: 8px;
-            color: var(--text-secondary);
-        }
-
-        .data-block {
-            background-color: #f8f9fa;
-            padding: 20px;
-            border-radius: 4px;
-            border-left: 4px solid var(--accent-color);
-            margin-top: 20px;
-        }
-
-        .biome-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 10px;
-        }
-
-        .biome-tag {
-            background-color: #e9ecef;
-            color: var(--text-secondary);
-            padding: 4px 10px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: 500;
-            border: 1px solid var(--border-color);
-        }
     </style>
 </head>
 <body>
 
+<header>
+    <div class="container">
+        <h1>Amanitum Mod</h1>
+        <div class="subtitle">v.2026 // Classified Research Data</div>
+    </div>
+</header>
+
 <div class="container">
 
-    <h1>Документация модификации Amanitum</h1>
+    <h2><span style="color:var(--text-muted)">01.</span> Fungal Specimen</h2>
 
-    <h2>Глава 1: Грибы</h2>
-    <p>В этом разделе описаны новые виды грибов, их места обитания и эффекты после термической обработки.</p>
-
-    <div class="item-card">
-        <div class="item-header">
-            <h3 class="item-title">Ярко-жёлтый гриб</h3>
+    <div class="card">
+        <div class="card-header">
+            <div class="item-name">Bright Yellow Mushroom</div>
         </div>
 
-        <div class="images-container">
-            <div class="img-box">
-                <img src="img/bright_yellow_mushroom.png" alt="Сырой гриб" class="img-item">
-                <div class="img-caption">Сырой вариант</div>
+        <div class="showcase-grid">
+            <div class="img-container">
+                <img src="img/bright_yellow_mushroom.png" class="img-icon" alt="Raw">
+                <span class="caption">Сырой образец</span>
             </div>
-            <div class="img-box">
-                <img src="img/bright_yellow_mushroom_dried.png" alt="Жареный гриб" class="img-item">
-                <div class="img-caption">Жареный (Сушеный) вариант</div>
+            <div class="img-container">
+                <img src="img/bright_yellow_mushroom_dried.png" class="img-icon" alt="Dried">
+                <span class="caption">Термически обработанный</span>
             </div>
         </div>
 
-        <span class="section-title">Места обитания:</span>
-        <div class="biome-list">
-            <span class="biome-tag">Тёмный лес</span>
-            <span class="biome-tag">Тайга</span>
-            <span class="biome-tag">Берёзовая роща (Old Growth Birch Taiga)</span>
-            <span class="biome-tag">Древняя хвойная тайга (Old Growth Pine Taiga)</span>
-        </div>
-
-        <div class="data-block">
-            <span class="section-title" style="margin-top: 0;">Приготовление и Эффекты:</span>
-            <p>Жареная версия получается путем переплавки сырого гриба в печи.</p>
-            <strong>Эффекты при употреблении жареного гриба:</strong>
-            <ul>
-                <li>Тошнота III (10:00)</li>
-                <li>Спешка I (2:30)</li>
-                <li>Эффект "Трип" (10:00)</li>
-            </ul>
+        <div class="info-grid">
+            <div class="info-block">
+                <span class="info-title">Ареал обитания</span>
+                <div class="biome-tags">
+                    <span class="tag">Dark Forest</span>
+                    <span class="tag">Taiga</span>
+                    <span class="tag">Old Growth Birch Taiga</span>
+                    <span class="tag">Old Growth Pine Taiga</span>
+                </div>
+            </div>
+            <div class="info-block">
+                <span class="info-title">Химический анализ (Жареный)</span>
+                <ul class="effects-list">
+                    <li class="fx-bad">Nausea (Тошнота) III <span class="time-badge">10:00</span></li>
+                    <li class="fx-good">Haste (Спешка) I <span class="time-badge">02:30</span></li>
+                    <li class="fx-trip">PSYCHOSIS (Трип) <span class="time-badge">10:00</span></li>
+                </ul>
+                <p style="margin-top:10px; font-size:0.9rem; color:var(--text-muted)">
+                    *Для активации свойств требуется переплавка в печи.
+                </p>
+            </div>
         </div>
     </div>
 
-    <div class="item-card">
-        <div class="item-header">
-            <h3 class="item-title">Пантерный гриб</h3>
+    <div class="card">
+        <div class="card-header">
+            <div class="item-name">Panther Mushroom</div>
         </div>
 
-        <div class="images-container">
-            <div class="img-box">
-                <img src="img/pantera_mushroom.png" alt="Сырой гриб" class="img-item">
-                <div class="img-caption">Сырой вариант</div>
+        <div class="showcase-grid">
+            <div class="img-container">
+                <img src="img/pantera_mushroom.png" class="img-icon" alt="Raw">
+                <span class="caption">Сырой образец</span>
             </div>
-            <div class="img-box">
-                <img src="img/pantera_mushroom_dried.png" alt="Жареный гриб" class="img-item">
-                <div class="img-caption">Жареный (Сушеный) вариант</div>
+            <div class="img-container">
+                <img src="img/pantera_mushroom_dried.png" class="img-icon" alt="Dried">
+                <span class="caption">Термически обработанный</span>
             </div>
         </div>
 
-        <span class="section-title">Места обитания:</span>
-        <div class="biome-list">
-            <span class="biome-tag">Мангровое болото</span>
-            <span class="biome-tag">Болото</span>
-            <span class="biome-tag">Тёмный лес</span>
-        </div>
-
-        <div class="data-block">
-            <span class="section-title" style="margin-top: 0;">Приготовление и Эффекты:</span>
-            <p>Жареная версия получается путем переплавки сырого гриба в печи.</p>
-            <strong>Эффекты при употреблении жареного гриба:</strong>
-            <ul>
-                <li>Тошнота III (10:00)</li>
-                <li>Прилив здоровья (Health Boost) I (0:10)</li>
-                <li>Эффект "Трип" (10:00)</li>
-            </ul>
+        <div class="info-grid">
+            <div class="info-block">
+                <span class="info-title">Ареал обитания</span>
+                <div class="biome-tags">
+                    <span class="tag">Mangrove Swamp</span>
+                    <span class="tag">Swamp</span>
+                    <span class="tag">Dark Forest</span>
+                </div>
+            </div>
+            <div class="info-block">
+                <span class="info-title">Химический анализ (Жареный)</span>
+                <ul class="effects-list">
+                    <li class="fx-bad">Nausea (Тошнота) III <span class="time-badge">10:00</span></li>
+                    <li class="fx-good">Health Boost I <span class="time-badge">00:10</span></li>
+                    <li class="fx-trip">PSYCHOSIS (Трип) <span class="time-badge">10:00</span></li>
+                </ul>
+            </div>
         </div>
     </div>
 
-    <div class="item-card">
-        <div class="item-header">
-            <h3 class="item-title">Псилоцибиновый гриб</h3>
+    <div class="card">
+        <div class="card-header">
+            <div class="item-name">Psilocybin Mushroom</div>
         </div>
 
-        <div class="images-container">
-            <div class="img-box">
-                <img src="img/psilocybin_mushroom.png" alt="Сырой гриб" class="img-item">
-                <div class="img-caption">Сырой вариант</div>
+        <div class="showcase-grid">
+            <div class="img-container">
+                <img src="img/psilocybin_mushroom.png" class="img-icon" alt="Raw">
+                <span class="caption">Сырой образец</span>
             </div>
-            <div class="img-box">
-                <img src="img/psilocybin_mushroom_dried.png" alt="Жареный гриб" class="img-item">
-                <div class="img-caption">Жареный (Сушеный) вариант</div>
+            <div class="img-container">
+                <img src="img/psilocybin_mushroom_dried.png" class="img-icon" alt="Dried">
+                <span class="caption">Термически обработанный</span>
             </div>
         </div>
 
-        <span class="section-title">Места обитания:</span>
-        <div class="biome-list">
-            <span class="biome-tag">Грибной остров</span>
-            <span class="biome-tag">Бамбуковые джунгли</span>
-            <span class="biome-tag">Джунгли</span>
-            <span class="biome-tag">Берег</span>
-        </div>
-
-        <div class="data-block">
-            <span class="section-title" style="margin-top: 0;">Приготовление и Эффекты:</span>
-            <p>Жареная версия получается путем переплавки сырого гриба в печи.</p>
-            <strong>Эффекты при употреблении жареного гриба:</strong>
-            <ul>
-                <li>Тошнота III (0:30)</li>
-                <li>Сила I (3:00)</li>
-                <li>Эффект "Трип" (10:00)</li>
-            </ul>
+        <div class="info-grid">
+            <div class="info-block">
+                <span class="info-title">Ареал обитания</span>
+                <div class="biome-tags">
+                    <span class="tag">Mushroom Fields</span>
+                    <span class="tag">Bamboo Jungle</span>
+                    <span class="tag">Jungle</span>
+                    <span class="tag">Beach</span>
+                </div>
+            </div>
+            <div class="info-block">
+                <span class="info-title">Химический анализ (Жареный)</span>
+                <ul class="effects-list">
+                    <li class="fx-bad">Nausea (Тошнота) III <span class="time-badge">00:30</span></li>
+                    <li class="fx-good">Strength (Сила) I <span class="time-badge">03:00</span></li>
+                    <li class="fx-trip">PSYCHOSIS (Трип) <span class="time-badge">10:00</span></li>
+                </ul>
+            </div>
         </div>
     </div>
 
-    <h2>Глава 2: Экстракты</h2>
-    <p>Экстракты — концентрированные вещества, требующие специального носителя для употребления.</p>
-
-    <div class="item-card">
-        <div class="item-header">
-            <h3 class="item-title">Сверток (Money Paper)</h3>
+    <h2><span style="color:var(--text-muted)">02.</span> Extracts & Compounds</h2>
+    
+    <div class="card">
+        <div class="card-header">
+            <div class="item-name">The Wrapper (Сверток)</div>
         </div>
-
-        <div class="images-container">
-            <div class="img-box">
-                <img src="img/money_paper.png" alt="Сверток" class="img-item">
-                <div class="img-caption">Предмет</div>
+        <div class="showcase-grid">
+            <div class="img-container">
+                <img src="img/money_paper.png" class="img-icon" alt="Item">
+                <span class="caption">Носитель</span>
             </div>
-            <div class="img-box">
-                <img src="img/money_paper_craft.png" alt="Крафт свертка" class="img-craft">
-                <div class="img-caption">Рецепт крафта</div>
+            <div class="img-container" style="flex: 2;">
+                <img src="img/money_paper_craft.png" class="img-craft" alt="Crafting Recipe">
+                <span class="caption">Схема сборки</span>
             </div>
         </div>
-        <p>Сверток используется как необходимый компонент для употребления любого экстракта. После использования экстракта пустой сверток возвращается игроку.</p>
-    </div>
-
-    <div class="item-card">
-        <div class="item-header">
-            <h3 class="item-title">Белый экстракт</h3>
-        </div>
-
-        <div class="images-container">
-             <div class="img-box">
-                <img src="img/white_craft.png" alt="Крафт белого экстракта" class="img-craft">
-                <div class="img-caption">Рецепт получения</div>
-            </div>
-        </div>
-
-        <div class="data-block">
-            <span class="section-title" style="margin-top: 0;">Употребление и Эффекты:</span>
-            <p>Для использования объедините в окне крафта <strong>Сверток</strong> и <strong>Белый экстракт</strong>.</p>
-            <strong>Эффекты:</strong>
-            <ul>
-                <li>Эффект "Трип" (10:00)</li>
-                <li>Прилив здоровья (Health Boost) III (0:30)</li>
-            </ul>
+        <div class="info-block">
+            <p style="color: var(--text-muted);">
+                Базовый компонент для безопасного (или не очень) употребления экстрактов. Является многоразовым носителем — возвращается после использования вещества.
+            </p>
         </div>
     </div>
 
-    <div class="item-card">
-        <div class="item-header">
-            <h3 class="item-title">Красный экстракт</h3>
+    <div class="card">
+        <div class="card-header">
+            <div class="item-name">White Extract</div>
         </div>
-
-        <div class="images-container">
-             <div class="img-box">
-                <img src="img/red_craft.png" alt="Крафт красного экстракта" class="img-craft">
-                <div class="img-caption">Рецепт получения</div>
+        <div class="showcase-grid">
+            <div class="img-container">
+                <img src="img/white_craft.png" class="img-craft" alt="Crafting Recipe">
+                <span class="caption">Схема синтеза</span>
             </div>
-        </div>
-
-        <div class="data-block">
-            <span class="section-title" style="margin-top: 0;">Употребление и Эффекты:</span>
-            <p>Для использования объедините в окне крафта <strong>Сверток</strong> и <strong>Красный экстракт</strong>.</p>
-            <strong>Эффекты:</strong>
-            <ul>
-                <li>Регенерация II (0:30)</li>
-                <li>Эффект "Трип" (5:00)</li>
-            </ul>
+            <div class="info-block">
+                <span class="info-title">Протокол использования</span>
+                <p style="margin-bottom:15px; color:var(--text-main);">
+                    Совместить <strong>Сверток</strong> + <strong>Экстракт</strong> в сетке крафта.
+                </p>
+                <span class="info-title">Эффекты</span>
+                <ul class="effects-list">
+                    <li class="fx-trip">PSYCHOSIS (Трип) <span class="time-badge">10:00</span></li>
+                    <li class="fx-good">Health Boost III <span class="time-badge">00:30</span></li>
+                </ul>
+            </div>
         </div>
     </div>
 
-    <div class="item-card">
-        <div class="item-header">
-            <h3 class="item-title">Жёлтый экстракт</h3>
+    <div class="card">
+        <div class="card-header">
+            <div class="item-name">Red Extract</div>
         </div>
-
-        <div class="images-container">
-             <div class="img-box">
-                <img src="img/yellow_craft.png" alt="Крафт желтого экстракта" class="img-craft">
-                <div class="img-caption">Рецепт получения</div>
+        <div class="showcase-grid">
+            <div class="img-container">
+                <img src="img/red_craft.png" class="img-craft" alt="Crafting Recipe">
+                <span class="caption">Схема синтеза</span>
             </div>
-        </div>
-
-        <div class="data-block">
-            <span class="section-title" style="margin-top: 0;">Употребление и Эффекты:</span>
-            <p>Для использования объедините в окне крафта <strong>Сверток</strong> и <strong>Жёлтый экстракт</strong>.</p>
-            <strong>Эффекты:</strong>
-            <ul>
-                <li>Спешка III (5:00)</li>
-                <li>Эффект "Трип" (5:20)</li>
-            </ul>
+            <div class="info-block">
+                <span class="info-title">Протокол использования</span>
+                <p style="margin-bottom:15px; color:var(--text-main);">
+                    Совместить <strong>Сверток</strong> + <strong>Экстракт</strong> в сетке крафта.
+                </p>
+                <span class="info-title">Эффекты</span>
+                <ul class="effects-list">
+                    <li class="fx-good">Regeneration II <span class="time-badge">00:30</span></li>
+                    <li class="fx-trip">PSYCHOSIS (Трип) <span class="time-badge">05:00</span></li>
+                </ul>
+            </div>
         </div>
     </div>
 
-</div> </body>
+    <div class="card">
+        <div class="card-header">
+            <div class="item-name">Yellow Extract</div>
+        </div>
+        <div class="showcase-grid">
+            <div class="img-container">
+                <img src="img/yellow_craft.png" class="img-craft" alt="Crafting Recipe">
+                <span class="caption">Схема синтеза</span>
+            </div>
+            <div class="info-block">
+                <span class="info-title">Протокол использования</span>
+                <p style="margin-bottom:15px; color:var(--text-main);">
+                    Совместить <strong>Сверток</strong> + <strong>Экстракт</strong> в сетке крафта.
+                </p>
+                <span class="info-title">Эффекты</span>
+                <ul class="effects-list">
+                    <li class="fx-good">Haste (Спешка) III <span class="time-badge">05:00</span></li>
+                    <li class="fx-trip">PSYCHOSIS (Трип) <span class="time-badge">05:20</span></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-note">
+        GENERATED FOR AMANITUM MOD / 2026
+    </div>
+
+</div>
+
+</body>
 </html>
